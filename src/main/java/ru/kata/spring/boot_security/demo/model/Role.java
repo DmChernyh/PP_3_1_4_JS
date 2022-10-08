@@ -4,10 +4,10 @@ import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
 
+
 @Entity
 @Table (name = "role")
 public class Role implements GrantedAuthority {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
@@ -43,6 +43,26 @@ public class Role implements GrantedAuthority {
     @Override
     public String getAuthority() {
         return getRole();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (obj == this) {
+            return true;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        Role role = (Role) obj;
+        return (this.getId() == role.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return  1 + 31 * getId();
     }
 
     @Override

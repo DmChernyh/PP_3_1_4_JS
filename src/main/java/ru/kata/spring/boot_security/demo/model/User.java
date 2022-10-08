@@ -70,6 +70,16 @@ public class User implements UserDetails {
         this.roles = roles;
     }
 
+    public String getShortRoles() {
+        if (roles.toString().equals("[ROLE_USER]")) {
+            return "USER";
+        }
+        else if (roles.toString().equals("[ROLE_ADMIN]")) {
+            return "ADMIN";
+        }
+        return "ADMIN USER";
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return getRoles();

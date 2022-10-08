@@ -1,17 +1,12 @@
 package ru.kata.spring.boot_security.demo.dao;
 
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
-import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.model.User;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Repository
 public class UserDaoImpl implements UserDao{
@@ -44,9 +39,9 @@ public class UserDaoImpl implements UserDao{
         entityManager.remove(getUserById(id));
     }
 
-
     @Override
     public List<User> findByUsername(String username) {
         return entityManager.createQuery("select u from User u join fetch u.roles where u.username =:username").setParameter("username", username).getResultList();
     }
+
 }

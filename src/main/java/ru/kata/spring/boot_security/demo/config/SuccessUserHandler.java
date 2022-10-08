@@ -1,4 +1,4 @@
-package ru.kata.spring.boot_security.demo.configs;
+package ru.kata.spring.boot_security.demo.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -15,7 +15,7 @@ import java.util.Set;
 
 @Component
 public class SuccessUserHandler implements AuthenticationSuccessHandler {
-    // Spring Security использует объект Authentication, пользователя авторизованной сессии.
+
     private final UserService userService;
 
     @Autowired
@@ -30,8 +30,10 @@ public class SuccessUserHandler implements AuthenticationSuccessHandler {
 
         if (roles.contains("ROLE_ADMIN")) {
             httpServletResponse.sendRedirect("/admin");
+        } else if (roles.contains("ROLE_USER")) {
+            httpServletResponse.sendRedirect("/user");
         } else {
-            httpServletResponse.sendRedirect("/user/" + user.getId());
+            httpServletResponse.sendRedirect("/login");
         }
     }
 }
