@@ -12,11 +12,11 @@ import java.util.Set;
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id")
+    @Column(name = "id")
     private int id;
-    @Column(name="username")
+    @Column(name = "username")
     private String username;
-    @Column(name="hobby")
+    @Column(name = "hobby")
     private String hobby;
     @Column(name = "password")
     private String password;
@@ -36,6 +36,13 @@ public class User implements UserDetails {
         this.id = id;
         this.username = username;
         this.hobby = hobby;
+    }
+
+    public User(String username, String hobby, String password) {
+        this.username = username;
+        this.hobby = hobby;
+        this.password = password;
+
     }
 
     public int getId() {
@@ -73,8 +80,7 @@ public class User implements UserDetails {
     public String getShortRoles() {
         if (roles.toString().equals("[ROLE_USER]")) {
             return "USER";
-        }
-        else if (roles.toString().equals("[ROLE_ADMIN]")) {
+        } else if (roles.toString().equals("[ROLE_ADMIN]")) {
             return "ADMIN";
         }
         return "ADMIN USER";

@@ -31,7 +31,7 @@ public class AdminController {
     }
 
     @GetMapping("/new")
-    public String getAddNewUserPage(@AuthenticationPrincipal User user,Model model) {
+    public String getAddNewUserPage(@AuthenticationPrincipal User user, Model model) {
         User newUser = new User();
         model.addAttribute("user", user);
         model.addAttribute("newUser", newUser);

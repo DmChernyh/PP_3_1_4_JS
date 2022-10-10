@@ -3,7 +3,6 @@ package ru.kata.spring.boot_security.demo.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -38,6 +37,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void saveUser(User user, String[] roles) {
+        if (!(userDao.findByUsername(user.getUsername()).isEmpty())) {
+            throw new RuntimeException("Name already used");
+        }
+
         Set<Role> role = new HashSet<>();
         role.add(roleService.getAllRoles().get(1));
         for (String s : roles) {
@@ -76,9 +79,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    @Transactional(readOnly = true)
+    public UserDetails loadUserByUsername(String username) {
         List<User> user = userDao.findByUsername(username);
-        return  user.get(0);
+        return user.get(0);
     }
 
 }
