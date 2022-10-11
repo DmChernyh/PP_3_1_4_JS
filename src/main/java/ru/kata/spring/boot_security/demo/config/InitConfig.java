@@ -23,8 +23,8 @@ public class InitConfig {
     Role userRole = new Role("ROLE_USER");
 
 
-    private final User admin = new User("admin", "java", "admin");
-    private final User user = new User("user", "java", "user");
+    private final User admin = new User("admin@mail.ru", "admin", "java", "admin");
+    private final User user = new User("user@mail.ru", "user", "java", "user");
     String[] roleAdmin = new String[]{"ROLE_ADMIN", "ROLE_USER"};
     String[] roleUser = new String[]{"ROLE_USER"};
 

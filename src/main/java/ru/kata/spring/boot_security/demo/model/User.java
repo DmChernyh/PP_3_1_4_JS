@@ -14,8 +14,10 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
-    @Column(name = "username")
-    private String username;
+    @Column(name = "email")
+    private String email;
+    @Column(name = "name")
+    private String name;
     @Column(name = "hobby")
     private String hobby;
     @Column(name = "password")
@@ -32,14 +34,15 @@ public class User implements UserDetails {
 
     }
 
-    public User(int id, String username, String hobby) {
+    public User(int id, String name, String hobby) {
         this.id = id;
-        this.username = username;
+        this.name = name;
         this.hobby = hobby;
     }
 
-    public User(String username, String hobby, String password) {
-        this.username = username;
+    public User(String email, String name, String hobby, String password) {
+        this.email = email;
+        this.name = name;
         this.hobby = hobby;
         this.password = password;
 
@@ -51,6 +54,22 @@ public class User implements UserDetails {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getHobby() {
@@ -65,9 +84,6 @@ public class User implements UserDetails {
         this.password = password;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
 
     public Set<Role> getRoles() {
         return roles;
@@ -98,7 +114,7 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return username;
+        return email;
     }
 
     @Override
@@ -145,9 +161,11 @@ public class User implements UserDetails {
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", name='" + username + '\'' +
+                ", email='" + email + '\'' +
+                ", name='" + name + '\'' +
                 ", hobby='" + hobby + '\'' +
+                ", password='" + password + '\'' +
+                ", roles=" + roles +
                 '}';
     }
-
 }

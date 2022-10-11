@@ -37,7 +37,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void saveUser(User user, String[] roles) {
-        if (!(userDao.findByUsername(user.getUsername()).isEmpty())) {
+        if (!(userDao.findByUsername(user.getEmail()).isEmpty())) {
             throw new RuntimeException("Name already used");
         }
 
@@ -80,8 +80,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional(readOnly = true)
-    public UserDetails loadUserByUsername(String username) {
-        List<User> user = userDao.findByUsername(username);
+    public UserDetails loadUserByUsername(String email) {
+        List<User> user = userDao.findByUsername(email);
         return user.get(0);
     }
 

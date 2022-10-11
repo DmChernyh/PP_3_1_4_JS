@@ -52,8 +52,11 @@
                     th:action="@{saveUser}"
                     th:object="${newUser}"
                     method="POST">
-                <label for="name"><b>Username</b></label>
-                <input th:name="username" th:type="text" class="form-control" id="name" required/>
+                <label for="email"><b>Email</b></label>
+                <input th:name="email" th:type="text" class="form-control" id="email" required/>
+                <br>
+                <label for="name"><b>Name</b></label>
+                <input th:name="name" th:type="text" class="form-control" id="name" required/>
                 <br>
                 <label for="surname"><b>Hobby</b></label>
                 <input th:name="hobby" th:type="text" class="form-control" id="surname" required/>

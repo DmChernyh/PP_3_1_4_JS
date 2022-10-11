@@ -49,6 +49,7 @@
                                 <table class="table table-striped table-hover">
                                     <tr>
                                         <th>ID</th>
+                                        <th>Email</th>
                                         <th>Name</th>
                                         <th>Hobby</th>
                                         <th>Role</th>
@@ -57,7 +58,8 @@
                                     </tr>
                                     <tr th:each="user : ${users}">
                                         <td th:text="${user.id}">id</td>
-                                        <td th:text="${user.username}">name</td>
+                                        <td th:text="${user.email}">email</td>
+                                        <td th:text="${user.name}">name</td>
                                         <td th:text="${user.hobby}">hobby</td>
                                         <td th:text="${user.shortRoles}">roles</td>
                                         <td>
@@ -83,10 +85,16 @@
                                                           th:object="${user}" th:method="PUT">
                                                         <div class="modal-body col-md text-center">
                                                             <br>
+                                                            <label for="email0"><b>Email</b></label>
+                                                            <input th:name="email" th:type="text"
+                                                                   class="form-control" id="email0"
+                                                                   th:value="${user.email}"/>
+                                                            <br>
+                                                            <br>
                                                             <label for="name0"><b>Name</b></label>
-                                                            <input th:name="username" th:type="text"
+                                                            <input th:name="name" th:type="text"
                                                                    class="form-control" id="name0"
-                                                                   th:value="${user.username}"/>
+                                                                   th:value="${user.name}"/>
                                                             <br>
                                                             <label for="hobby0"><b>Hobby</b></label>
                                                             <input th:name="hobby" th:type="text"
@@ -135,10 +143,15 @@
                                                             <input th:name="id" th:type="text" class="form-control"
                                                                    id="id" th:value="${user.id}" disabled/>
                                                             <br>
+                                                            <label for="email1"><b>Email</b></label>
+                                                            <input th:name="email" th:type="text"
+                                                                   class="form-control" id="email1"
+                                                                   th:value="${user.email}"/>
+                                                            <br>
                                                             <label for="name1"><b>Name</b></label>
                                                             <input th:name="name" th:type="text"
                                                                    class="form-control"
-                                                                   id="name1" th:value="${user.username}" disabled/>
+                                                                   id="name1" th:value="${user.name}" disabled/>
                                                             <br>
                                                             <label for="hobby1"><b>Hobby</b></label>
                                                             <input th:name="hobby" th:type="text"
