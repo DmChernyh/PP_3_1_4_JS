@@ -2,10 +2,14 @@ package ru.kata.spring.boot_security.demo.init;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import ru.kata.spring.boot_security.demo.model.Role;
-import ru.kata.spring.boot_security.demo.model.User;
-import ru.kata.spring.boot_security.demo.service.RoleService;
-import ru.kata.spring.boot_security.demo.service.UserService;
+import ru.kata.spring.boot_security.demo.models.Role;
+import ru.kata.spring.boot_security.demo.models.User;
+import ru.kata.spring.boot_security.demo.services.RoleService;
+import ru.kata.spring.boot_security.demo.services.UserService;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Component
 public class InitConfig {
@@ -22,18 +26,17 @@ public class InitConfig {
     Role adminRole = new Role("ROLE_ADMIN");
     Role userRole = new Role("ROLE_USER");
 
+    final Set<Role> roles1 = new HashSet<>(List.of(adminRole, userRole));
+    final Set<Role> roles2 = new HashSet<>(List.of(userRole));
 
-    private final User admin = new User("admin@mail.ru", "admin", "java", "admin");
-    private final User user = new User("user@mail.ru", "user", "java", "user");
-    String[] roleAdmin = new String[]{"ROLE_ADMIN", "ROLE_USER"};
-    String[] roleUser = new String[]{"ROLE_USER"};
-
+    final User admin = new User("admin@mail.ru", "admin", "java", "admin", roles1);
+    final User user = new User("user@mail.ru", "user", "java", "user", roles2);
 
     public void init() {
-        roleService.saveRole(adminRole);
-        roleService.saveRole(userRole);
-        userService.saveUser(admin, roleAdmin);
-        userService.saveUser(user, roleUser);
-    }
+        roleService.save(adminRole);
+        roleService.save(userRole);
+        userService.addUser(admin);
+        userService.addUser(user);
 
+    }
 }
