@@ -1,4 +1,4 @@
-package ru.kata.spring.boot_security.demo.controllers;
+package ru.kata.spring.boot_security.demo.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -8,12 +8,12 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.kata.spring.boot_security.demo.dto.RoleDTO;
 import ru.kata.spring.boot_security.demo.dto.UserDTO;
-import ru.kata.spring.boot_security.demo.models.User;
-import ru.kata.spring.boot_security.demo.services.RoleService;
-import ru.kata.spring.boot_security.demo.services.UserService;
-import ru.kata.spring.boot_security.demo.util.RegistrationWrongUsernameException;
-import ru.kata.spring.boot_security.demo.util.RegistrationWrongUsernameResponse;
-import ru.kata.spring.boot_security.demo.util.UserValidator;
+import ru.kata.spring.boot_security.demo.model.User;
+import ru.kata.spring.boot_security.demo.service.RoleService;
+import ru.kata.spring.boot_security.demo.service.UserService;
+import ru.kata.spring.boot_security.demo.exception.RegistrationWrongUsernameException;
+import ru.kata.spring.boot_security.demo.exception.RegistrationWrongUsernameResponse;
+import ru.kata.spring.boot_security.demo.exception.UserValidator;
 
 import java.util.List;
 import java.util.Set;
@@ -35,7 +35,7 @@ public class AdminController {
     }
 
     @GetMapping
-    public List<UserDTO> getAllUsers() {
+    public List<UserDTO> showAllUsers() {
         return userService.findAll().stream().map(userService::convertToDto).collect(Collectors.toList());
     }
 
@@ -63,12 +63,12 @@ public class AdminController {
     }
 
     @GetMapping("/auth")
-    public UserDTO getAuth(Authentication auth) {
+    public UserDTO showAuthUser(Authentication auth) {
         return userService.convertToDto(userService.findByUsername(auth.getName()));
     }
 
     @GetMapping("/roles")
-    public Set<RoleDTO> getAllRoles() {
+    public Set<RoleDTO> showAllRoles() {
         return roleService.findAll().stream().map(roleService::convertToDto).collect(Collectors.toSet());
     }
 
