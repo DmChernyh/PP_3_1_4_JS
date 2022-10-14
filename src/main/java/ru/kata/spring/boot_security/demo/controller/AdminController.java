@@ -35,8 +35,9 @@ public class AdminController {
     }
 
     @GetMapping
-    public List<UserDTO> showAllUsers() {
-        return userService.findAll().stream().map(userService::convertToDto).collect(Collectors.toList());
+    public ResponseEntity<List<UserDTO>> showAllUsers() {
+        List<UserDTO> userDTOList = userService.findAll().stream().map(userService::convertToDto).collect(Collectors.toList());
+        return new ResponseEntity<>(userDTOList, HttpStatus.OK);
     }
 
     @PatchMapping("/edit/{id}")
@@ -63,13 +64,15 @@ public class AdminController {
     }
 
     @GetMapping("/auth")
-    public UserDTO showAuthUser(Authentication auth) {
-        return userService.convertToDto(userService.findByUsername(auth.getName()));
+    public ResponseEntity<UserDTO> showAuthUser(Authentication auth) {
+        UserDTO userDTO = userService.convertToDto(userService.findByUsername(auth.getName()));
+        return new ResponseEntity<>(userDTO, HttpStatus.OK);
     }
 
     @GetMapping("/roles")
-    public Set<RoleDTO> showAllRoles() {
-        return roleService.findAll().stream().map(roleService::convertToDto).collect(Collectors.toSet());
+    public ResponseEntity<Set<RoleDTO>> showAllRoles() {
+        Set<RoleDTO> roleDTOSet = roleService.findAll().stream().map(roleService::convertToDto).collect(Collectors.toSet());
+        return new ResponseEntity<>(roleDTOSet, HttpStatus.OK);
     }
 
     @ExceptionHandler

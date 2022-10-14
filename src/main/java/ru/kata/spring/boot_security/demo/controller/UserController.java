@@ -1,6 +1,8 @@
 package ru.kata.spring.boot_security.demo.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +21,8 @@ public class UserController {
     }
 
     @GetMapping
-    public UserDTO showUserPage(Authentication auth) {
-        return userService.convertToDto(userService.findByUsername(auth.getName()));
+    public ResponseEntity<UserDTO> showUserPage(Authentication auth) {
+        UserDTO userDTO = userService.convertToDto(userService.findByUsername(auth.getName()));
+        return new ResponseEntity<>(userDTO, HttpStatus.OK);
     }
 }
